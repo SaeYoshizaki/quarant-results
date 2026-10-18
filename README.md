@@ -4,7 +4,7 @@
 
 ## 中身
 
-`runs/` の各ファイルは、1 回の全データの解析。展開すると、キャプチャ 1 つごとにフォルダがあり、`events.jsonl`（検出したイベント）、`device_inventory.json`（機器の一覧と識別の根拠）、`findings.json`（機器 × 状態の要約）が入っている。各フォルダの 
+`runs/` の各ファイルは、1 回の全データの解析。展開すると、キャプチャ 1 つごとにフォルダがあり、`events.jsonl`（検出したイベント）、`device_inventory.json`（機器の一覧と識別の根拠）、`findings.json`（機器 × 状態の要約）が入っている。
 
 | ファイル | Quarant | キャプチャ数 | 使った実験（Quarant の docs/EXPERIMENTS.md） |
 |---|---|---|---|
@@ -23,7 +23,7 @@
 | `runs/runs-e1.tar.gz` | 記録なし | 約 30 | E1（最初の検証。UNSW 2016、IoT-23） |
 | `ground-truth/gt-e10.tar.gz` | — | 1,084 | E11 の正解（Zeek 9.0.0 と生パケットの検索。名前だけで、値は含まない） |
 
-キャプチャの名前の付け方（フォルダ名）：`unsw-16-*`（UNSW IoT traces 2016）、`unswatk-18-*`（UNSW IoT attack traces 2018）、`iot23-*`（IoT-23）、`cic-1-power-*`、`cic-2-idle-*`、`cic-3-interactions-*`、`cic-4-scenarios-*`、`cic-5-active-*`、`cic-6-rtsp-*`（CIC IoT 2022）。
+<!-- キャプチャの名前の付け方（フォルダ名）：`unsw-16-*`（UNSW IoT traces 2016）、`unswatk-18-*`（UNSW IoT attack traces 2018）、`iot23-*`（IoT-23）、`cic-1-power-*`、`cic-2-idle-*`、`cic-3-interactions-*`、`cic-4-scenarios-*`、`cic-5-active-*`、`cic-6-rtsp-*`（CIC IoT 2022）。） -->
 
 ## そのほかの作業ファイル
 
@@ -35,11 +35,7 @@
 
   S2（Zeek、Suricata との比較）の出力 `fork-work/step2/` は含めていない（下記）。
 - `standards/e3-analysis.tar.gz`：E3（TS 103 701 の試験ケースの分類）の作業ファイル。規格の PDF は含めていない（ETSI から入手できる）。
-
-## 含めていないもの
-
-- **S2 の Zeek と Suricata の生のログ**（`fork-work/step2/`）：Quarant と違い、URL のトークンやパスワードなどの値を伏せずに記録しているため。比較の結果は Quarant の `docs/assessment/tool-comparison.md` にある。
-- **元の PCAP**：大きさ（合計 30GB 以上）と、各データセットの利用条件のため。配布元から取り直せる。
+- **元の PCAP**：
   - UNSW IoT traces：https://iotanalytics.unsw.edu.au/iottraces.html
   - UNSW IoT attack traces：https://iotanalytics.unsw.edu.au/attack-data.html
   - IoT-23：https://www.stratosphereips.org/datasets-iot23
