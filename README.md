@@ -19,13 +19,26 @@
 | `runs/runs-e4.tar.gz` | `b3b2e14` | 35 | E4 |
 | `runs/runs-cic.tar.gz` | 記録なし | 1,032 | E6〜E8（CIC IoT 2022） |
 | `runs/runs-active.tar.gz` | `21978b3` | 1 | E9（CIC IoT 2022 の 5-Active） |
-| `runs/runs-flood.tar.gz` | `203ccc9` | 158 | E13（CIC IoT 2022 の 1-Flood での誤反応の確認） |
+| `runs/runs-flood.tar.gz` | `203ccc9` | 79 | E13（CIC IoT 2022 の 1-Flood での誤反応の確認）。フォルダ名に `._` を含む 79 個は macOS の付随ファイルで、中身は空 |
+| `runs/runs-e1.tar.gz` | 記録なし | 約 30 | E1（最初の検証。UNSW 2016、IoT-23） |
 | `ground-truth/gt-e10.tar.gz` | — | 1,084 | E11 の正解（Zeek 9.0.0 と生パケットの検索。名前だけで、値は含まない） |
 
 キャプチャの名前の付け方（フォルダ名）：`unsw-16-*`（UNSW IoT traces 2016）、`unswatk-18-*`（UNSW IoT attack traces 2018）、`iot23-*`（IoT-23）、`cic-1-power-*`、`cic-2-idle-*`、`cic-3-interactions-*`、`cic-4-scenarios-*`、`cic-5-active-*`、`cic-6-rtsp-*`（CIC IoT 2022）。
 
+## そのほかの作業ファイル
+
+- `fork-work/`：分岐したセッション（機器カテゴリの評価 C1〜C3、I5 の照合の確認、パーサの差分検査など）の作業ファイルと解析結果。90MB ずつに分けてある。つなげてから展開する：
+
+  ```bash
+  cat fork-work/fork-work.tar.gz.part-* | tar -xzf -
+  ```
+
+  S2（Zeek、Suricata との比較）の出力 `fork-work/step2/` は含めていない（下記）。
+- `standards/e3-analysis.tar.gz`：E3（TS 103 701 の試験ケースの分類）の作業ファイル。規格の PDF は含めていない（ETSI から入手できる）。
+
 ## 含めていないもの
 
+- **S2 の Zeek と Suricata の生のログ**（`fork-work/step2/`）：Quarant と違い、URL のトークンやパスワードなどの値を伏せずに記録しているため。比較の結果は Quarant の `docs/assessment/tool-comparison.md` にある。
 - **元の PCAP**：大きさ（合計 30GB 以上）と、各データセットの利用条件のため。配布元から取り直せる。
   - UNSW IoT traces：https://iotanalytics.unsw.edu.au/iottraces.html
   - UNSW IoT attack traces：https://iotanalytics.unsw.edu.au/attack-data.html
