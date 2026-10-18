@@ -1,10 +1,10 @@
 # quarant-results
 
-[Quarant](https://github.com/SaeYoshizaki/Quarant)（家庭内 IoT 機器の通信をパッシブに監視する研究用システム）で、公開データセットを解析した結果の保管場所。研究室内での共有用（非公開）。
+[Quarant](https://github.com/SaeYoshizaki/Quarant)で、公開データセットを解析した結果の保管場所。
 
 ## 中身
 
-`runs/` の各ファイルは、1 回の全データの解析（1 つの版の Quarant）。展開すると、キャプチャ 1 つごとにフォルダがあり、`events.jsonl`（検出したイベント）、`device_inventory.json`（機器の一覧と識別の根拠）、`findings.json`（機器 × 状態の要約）が入っている。`observations.jsonl` と `flows.jsonl` は、容量のため解析のあとに消している。各フォルダの `manifest.txt` に、Quarant のコミットと、元のキャプチャの SHA-256（先頭 16 桁）がある。
+`runs/` の各ファイルは、1 回の全データの解析。展開すると、キャプチャ 1 つごとにフォルダがあり、`events.jsonl`（検出したイベント）、`device_inventory.json`（機器の一覧と識別の根拠）、`findings.json`（機器 × 状態の要約）が入っている。各フォルダの 
 
 | ファイル | Quarant | キャプチャ数 | 使った実験（Quarant の docs/EXPERIMENTS.md） |
 |---|---|---|---|
@@ -44,15 +44,3 @@
   - UNSW IoT attack traces：https://iotanalytics.unsw.edu.au/attack-data.html
   - IoT-23：https://www.stratosphereips.org/datasets-iot23
   - CIC IoT Dataset 2022：https://www.unb.ca/cic/datasets/iotdataset-2022.html
-
-## 注意
-
-- イベントの認証情報やトークンの値は、Quarant が `***` で伏せている。
-- 機器の一覧には、公開データセットに含まれるホスト名（PC やスマートフォンの持ち主の名前を含むもの）がそのまま入っている。外部に公開するときは、伏せてから出すこと。
-- 元データの利用条件に従い、研究と教育の目的に限って使うこと。
-
-## 展開のしかた
-
-```bash
-tar -xzf runs/runs-fix4.tar.gz        # runs-fix4/ ができる
-```
