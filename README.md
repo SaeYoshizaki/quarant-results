@@ -1,0 +1,45 @@
+# quarant-results
+
+[Quarant](https://github.com/SaeYoshizaki/Quarant)（家庭内 IoT 機器の通信をパッシブに監視する研究用システム）で、公開データセットを解析した結果の保管場所。研究室内での共有用（非公開）。
+
+## 中身
+
+`runs/` の各ファイルは、1 回の全データの解析（1 つの版の Quarant）。展開すると、キャプチャ 1 つごとにフォルダがあり、`events.jsonl`（検出したイベント）、`device_inventory.json`（機器の一覧と識別の根拠）、`findings.json`（機器 × 状態の要約）が入っている。`observations.jsonl` と `flows.jsonl` は、容量のため解析のあとに消している。各フォルダの `manifest.txt` に、Quarant のコミットと、元のキャプチャの SHA-256（先頭 16 桁）がある。
+
+| ファイル | Quarant | キャプチャ数 | 使った実験（Quarant の docs/EXPERIMENTS.md） |
+|---|---|---|---|
+| `runs/runs-fix4.tar.gz` | `106340f` | 1,084 | **最新**。E13（STARTTLS を入れたあとの測り直し） |
+| `runs/runs-fix3.tar.gz` | `978b290` | 1,084 | E13（キープアライブ、空のアップロードの修正） |
+| `runs/runs-fix2.tar.gz` | `203ccc9` | 1,084 | E13（本文の長さの修正。体重計の後退が見つかった版） |
+| `runs/runs-fix.tar.gz` | `3ae8b2c` | 1,084 | E12（E11 の見逃しの修正、D23） |
+| `runs/runs-d22.tar.gz` | `c357166` | 1,084 | E12 の修正前の基準（D22 を含む） |
+| `runs/runs-e10.tar.gz` | `abf5d92` | 1,084 | E10、E11（見逃しの測定） |
+| `runs/runs-e9.tar.gz` | `a4ea211` | 1,083 | E9 |
+| `runs/runs-e5.tar.gz` | `02d1ac8` | 35 | E5 |
+| `runs/runs-e4.tar.gz` | `b3b2e14` | 35 | E4 |
+| `runs/runs-cic.tar.gz` | 記録なし | 1,032 | E6〜E8（CIC IoT 2022） |
+| `runs/runs-active.tar.gz` | `21978b3` | 1 | E9（CIC IoT 2022 の 5-Active） |
+| `runs/runs-flood.tar.gz` | `203ccc9` | 158 | E13（CIC IoT 2022 の 1-Flood での誤反応の確認） |
+| `ground-truth/gt-e10.tar.gz` | — | 1,084 | E11 の正解（Zeek 9.0.0 と生パケットの検索。名前だけで、値は含まない） |
+
+キャプチャの名前の付け方（フォルダ名）：`unsw-16-*`（UNSW IoT traces 2016）、`unswatk-18-*`（UNSW IoT attack traces 2018）、`iot23-*`（IoT-23）、`cic-1-power-*`、`cic-2-idle-*`、`cic-3-interactions-*`、`cic-4-scenarios-*`、`cic-5-active-*`、`cic-6-rtsp-*`（CIC IoT 2022）。
+
+## 含めていないもの
+
+- **元の PCAP**：大きさ（合計 30GB 以上）と、各データセットの利用条件のため。配布元から取り直せる。
+  - UNSW IoT traces：https://iotanalytics.unsw.edu.au/iottraces.html
+  - UNSW IoT attack traces：https://iotanalytics.unsw.edu.au/attack-data.html
+  - IoT-23：https://www.stratosphereips.org/datasets-iot23
+  - CIC IoT Dataset 2022：https://www.unb.ca/cic/datasets/iotdataset-2022.html
+
+## 注意
+
+- イベントの認証情報やトークンの値は、Quarant が `***` で伏せている。
+- 機器の一覧には、公開データセットに含まれるホスト名（PC やスマートフォンの持ち主の名前を含むもの）がそのまま入っている。外部に公開するときは、伏せてから出すこと。
+- 元データの利用条件に従い、研究と教育の目的に限って使うこと。
+
+## 展開のしかた
+
+```bash
+tar -xzf runs/runs-fix4.tar.gz        # runs-fix4/ ができる
+```
