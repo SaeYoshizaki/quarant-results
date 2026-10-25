@@ -25,6 +25,26 @@
 
 <!-- キャプチャの名前の付け方（フォルダ名）：`unsw-16-*`（UNSW IoT traces 2016）、`unswatk-18-*`（UNSW IoT attack traces 2018）、`iot23-*`（IoT-23）、`cic-1-power-*`、`cic-2-idle-*`、`cic-3-interactions-*`、`cic-4-scenarios-*`、`cic-5-active-*`、`cic-6-rtsp-*`（CIC IoT 2022）。） -->
 
+## 2026-10-25 に追加：OSS を組み込んだ版（Quarant-oss）
+
+[Quarant-oss](https://github.com/SaeYoshizaki/Quarant-oss)（Quarant に Zeek と Suricata を組み込んだ版）の解析結果。まとめは Quarant-oss の `docs/REPORT-2026-10.md`。大きいファイルは 90MB ずつに分けてある。つなげてから展開する：
+
+```bash
+cat runs/runs-oss1.tar.gz.part-* | tar -xzf -
+```
+
+| ファイル | Quarant-oss | 中身 | 使った実験（Quarant-oss の docs/EXPERIMENTS.md） |
+|---|---|---|---|
+| `runs/runs-oss1.tar.gz.part-*` | `46138a4` | 全データ（UNSW 2016 の 20 日、CIC IoT 2022 の 1,050 キャプチャ、YourThings 2018 の 4 日）。キャプチャごとに `q/`（Quarant 単体）、`z/`（Zeek 経由）、`m/`（重ねたもの）。`manifest.txt` に元のキャプチャの SHA-256 | `docs/assessment/integration-rates.md` |
+| `runs/runs-oss1-iotraffic.tar.gz.part-*` | `46138a4` | UNSW-IoTraffic（27 台、機器ごとのキャプチャ）。同じ形 | 同上 |
+| `countermeasure/o6-o7.tar.gz.part-*` | `f073e74`〜`46138a4` | 対策の試算の最初の版（YourThings 3/20 の Zeek 経由、3/20 の計画を 4/12 に当てたもの）。外から始まった接続の取り違えがある前の数字で、O8 で測り直した。同梱の `plan-0320.json`、`plan-0412.json` は `6c81b1f` で作り直したもの | O6、O7 |
+| `countermeasure/o8.tar.gz.part-*` | `7b1f606` | 普通のルーター、一律の対策、Quarant の比較（YourThings、3/20 で学習、4/12 に当てる）。条件ごとの解析結果（`m/`）と `filter.stats.json`（止めたパケット、上位の宛先）、許可リスト | O8 |
+| `countermeasure/o9.tar.gz.part-*` | `6633222` | UNSW-IoTraffic で、2016 年 10 月で学習し、1〜5 か月後の週に当てたもの。期間ごとの計画、許可リスト、条件ごとの結果、`effect.md` | O9 |
+| `runs/runs-yt5.tar.gz.part-*` | Quarant `682144f` | YourThings 4/10〜12 の以前の解析 | E14、O1 |
+| `ground-truth/gt-yt.tar.gz.part-*` | — | YourThings の見逃しの正解（Zeek と生パケットの検索。名前だけで、値は含まない） | E14 |
+
+キャプチャ（PCAP）と、`flows.jsonl`、`observations.jsonl` は含めていない。
+
 ## そのほかの作業ファイル
 
 - `fork-work/`：分岐したセッション（機器カテゴリの評価 C1〜C3、I5 の照合の確認、パーサの差分検査など）の作業ファイルと解析結果。90MB ずつに分けてある。つなげてから展開する：
